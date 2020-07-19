@@ -4,7 +4,7 @@
         <li class='py-3'>
             <div>
             <a class='flex items-center font-bold text-sm' href="{{route('profile',$follow)}}">
-                <img src="/images/avatar.png" alt="" class='rounded-full h-10 mr-3'>{{$follow->name}}
+                <img src="{{$follow->getAvatar()}}" alt="" class='rounded-full h-10 mr-3'>{{$follow->name}}
             </a>
             </div>
         </li>

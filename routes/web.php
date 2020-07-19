@@ -13,15 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'kiwisController@index')->name('home');
-Route::post('/kiwi', 'KiwisController@store')->name('kiwi-store');
-Route::get('/user/{user}', 'ProfilesController@index')->name('profile');
-Route::post('/user/{user}/follow', 'ProfilesController@follow')->name('toggle-follow');
-Route::get('/user/{user}/edit', 'ProfilesController@edit')->name('edit-profile')->middleware('can:edit,user');
-Route::patch('/user/{user}/edit', 'ProfilesController@update')->name('update-profile')->middleware('can:edit,user');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', 'Auth\LoginController@showLoginForm');
+    Route::get('/home', 'KiwisController@index')->name('home');
+    Route::post('/kiwi', 'KiwisController@store')->name('kiwi-store');
+    Route::get('/explore', 'ExploreController@index')->name('explore');
+    Route::get('/user/{user}', 'ProfilesController@index')->name('profile');
+    Route::post('/user/{user}/follow', 'ProfilesController@follow')->name('toggle-follow');
+    Route::get('/user/{user}/edit', 'ProfilesController@edit')->name('edit-profile')->middleware('can:edit,user');
+    Route::patch('/user/{user}/edit', 'ProfilesController@update')->name('update-profile')->middleware('can:edit,user');
+});
+
+

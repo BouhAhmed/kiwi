@@ -2,7 +2,7 @@
 
 @section('page')
 
-<header class='mb-4 relative'>
+<header class='mb-4'>
     <img src="/images/cover.jpg" alt="" class='rounded-lg object-cover h-64 w-full mb-4'>
     <div class='flex justify-between items-center mb-6'>
         <div>
@@ -11,12 +11,13 @@
                 <i class="fa fa-calendar mr-1" aria-hidden="true"></i>
                 Joined {{$user->created_at->diffForHumans()}}</p>
         </div>
+        <div>
+            <img src="{{$user->getAvatar()}}" alt="" class='rounded-full w-32 border'>
+        </div>
         <div class='flex'>
-
             @can('edit', $user)
                 <a href="{{route('edit-profile',$user)}}" class="border border-gray-400 text-sm rounded-full px-6 py-2 mr-2 font-bold">Edit profile</a>
             @endcan
-
             @can('follow',$user)
                 <form action="{{route('toggle-follow',$user)}}" method='POST'>
                     @csrf
@@ -29,10 +30,9 @@
         </div>
     </div>
     <div class='text-center text-sm px-6'>
-        I am so in love with her <a href="#" class='text-blue-600 font-bold'>@KawtarBenLarbi</a>
+        {{$user->desc}}
     </div>
-    <img src="/images/avatar.png" alt="" class='rounded-full absolute'
-    style='width:120px; left:calc(50% - 75px); top:45%;'>
+
 </header>
 @include('incs.timeline',['kiwis'=>$user->kiwis])
 @endsection

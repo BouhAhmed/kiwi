@@ -2,7 +2,7 @@
 @forelse ($kiwis as $kiwi)
 <div class='flex p-4 {{$loop->last ? '' : 'border-b border-gray-400'}}'>
         <div class='mr-2 flex-shrink-0'>
-            <img src="/images/avatar.png" alt="" class='rounded-full h-10 mr-2'>
+            <img src="{{$kiwi->user->getAvatar()}}" alt="" class='rounded-full h-10 mr-2'>
         </div>
         <div>
         <h5>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Facades\Hash;
 class ProfilesController extends Controller
 {
     public function index(User $user){
@@ -13,7 +13,7 @@ class ProfilesController extends Controller
 
     public function follow(User $user){
         auth()->user()->toggleFollow($user);
-        return redirect()->route('profile',$user);
+        return redirect()->back();
     }
 
     public function edit(User $user){
@@ -22,16 +22,21 @@ class ProfilesController extends Controller
 
 
     public function update(User $user){
+        $output = null;
         $attrs = request()->validate([
-            'username' => ['required', 'string', 'max:255','alpha_dash',Rule::unique('users','username')->ignore($user->username)],
-            'name' => ['required','string','max:255','unique:users'],
-            'avatar'=>['image'],
-            'password' => ['required','string', 'confirmed'],
+            'username' => ['required', 'string', 'max:255','alpha_dash',Rule::unique('users')->ignore($user)],
+            'name' => ['string','required','string','max:255'],
+            'avatar' => 'file|mimes:jpeg,png,jpg,gif,svg',
+            'desc' => ['min:3,max:1000'],
+            'email'=>['string','required','email','max:255'],
+            'password' => ['required','string','max:255','confirmed'],
             ]);
+        if(request('avatar')){
+            $attrs['avatar'] = request('avatar')->store('avatars');
+        }
 
         $user->update($attrs);
-        exit();
-        return redirect()->route('profile',$user);
+        return redirect()->back()->with('success','Your Profile Updated successfully !');
 
     }
 }

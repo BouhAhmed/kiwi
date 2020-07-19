@@ -15,15 +15,34 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <style>
+        .dropdown:hover > .dropdown-content {
+            display: block;
+        }
+    </style>
     <!-- Styles -->
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
 <body>
-    <section class='px-8 py-4'>
-        <header class='container mx-auto'>
+    <section class='px-8 py-4 items-center'>
+        <header class='container flex mx-auto justify-between'>
             <img src="/images/logo.png" alt="">
+            <div class="dropdown">
+                <img class="h-12 w-12 rounded-full" src="{{asset(Auth::user()->getAvatar())}}">
+                <ul class="dropdown-content absolute hidden text-gray-700 pt-1">
+                <li><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="{{route('profile',auth()->user())}}"><i class="fa fa-user mr-4" aria-hidden="true"></i>My Account</a></li>
+                    <li>
+                        <form id='logout' action="{{route('logout')}}" method="post">
+                            @csrf
+                            <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="javascript:void()" onclick="document.getElementById('logout').submit();">
+                                <i class="fa fa-sign-out mr-4" aria-hidden="true"></i>Logout
+                            </a>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </header>
+
     </section>
     <section class='px-8'>
         <main class='container mx-auto'>

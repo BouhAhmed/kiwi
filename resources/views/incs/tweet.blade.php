@@ -7,7 +7,7 @@
         <textarea name="body" id="tweet" class="w-full" placeholder="Qu'est ce que's up Biiiirds !"></textarea>
         <hr class='my-4'>
         <footer class='flex justify-between'>
-            <img src="/images/avatar.png" alt="" class='rounded-full h-10'>
+        <img src="{{auth()->user()->getAvatar()}}" alt="" class='rounded-full h-10'>
             <button type="submit" class="bg-blue-400 text-white rounded-lg p-2 mr">kiwiiiiiii !!</button>
         </footer>
     </form>
