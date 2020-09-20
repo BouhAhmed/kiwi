@@ -7,12 +7,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Kiwi;
 use App\Profile;
+use App\Like;
 class User extends Authenticatable
 {
     use Notifiable,Followable;
 
     public function kiwis(){
         return $this->hasMany(Kiwi::class);
+    }
+
+    public function likes(){
+        return $this->hasMany(Like::class);
     }
 
     public function profile(){
@@ -23,7 +28,7 @@ class User extends Authenticatable
         //return Kiwi::where('user_id',$this->id)->latest()->get();
         $ids = $this->follows()->pluck('following_user_id');
         $ids->push($this->id);
-        return Kiwi::whereIn('user_id',$ids)->latest()->get();
+        return Kiwi::withLikes()->whereIn('user_id',$ids)->latest()->paginate(15);
     }
 
     /**
@@ -70,5 +75,5 @@ class User extends Authenticatable
         return 'username';
     }
 
-    
+
 }

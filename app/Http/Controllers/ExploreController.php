@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ExploreController extends Controller
 {
-    public function index(){
+    public function __invoke(){
         return view('pages.explore',['users'=>User::all()->except(auth()->id())]);
     }
 }

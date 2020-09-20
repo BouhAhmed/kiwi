@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Hash;
 class ProfilesController extends Controller
 {
     public function index(User $user){
-        return view('pages.profile',['user'=>$user]);
+        return view('pages.profile',['user'=>$user,
+                                     'kiwis'=>$user->kiwis()->withLikes()->paginate(3)
+                                    ]);
     }
 
     public function follow(User $user){
@@ -22,7 +24,6 @@ class ProfilesController extends Controller
 
 
     public function update(User $user){
-        $output = null;
         $attrs = request()->validate([
             'username' => ['required', 'string', 'max:255','alpha_dash',Rule::unique('users')->ignore($user)],
             'name' => ['string','required','string','max:255'],

@@ -12,6 +12,15 @@ class KiwisController extends Controller
         return view('pages.index',['kiwis'=>auth()->user()->timeline()]);
     }
 
+    public function like(Kiwi $kiwi){
+        $kiwi->like();
+        return redirect()->back();
+    }
+
+    public function dislike(Kiwi $kiwi){
+        $kiwi->dislike();
+        return redirect()->back();
+    }
 
     public function store(){
         request()->validate([
@@ -23,7 +32,7 @@ class KiwisController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        return redirect('/home');
+        return redirect()->back();
 
     }
 }

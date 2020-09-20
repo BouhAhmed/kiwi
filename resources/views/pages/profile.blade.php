@@ -34,5 +34,5 @@
     </div>
 
 </header>
-@include('incs.timeline',['kiwis'=>$user->kiwis])
+@include('incs.timeline',['kiwis'=>$kiwis])
 @endsection

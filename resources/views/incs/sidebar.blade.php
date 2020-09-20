@@ -6,5 +6,5 @@
     <li><a href="#" class='block font-bold text-lg mb-4'><i class="fa fa-bookmark mr-6" aria-hidden="true"></i>Bookmarks</a></li>
     <li><a href="#" class='block font-bold text-lg mb-4'><i class="fa fa-list mr-6" aria-hidden="true"></i>Lists</a></li>
 <li><a href="{{route('profile',auth()->user())}}" class='block font-bold text-lg mb-4'><i class="fa fa-user mr-6" aria-hidden="true"></i>Profile</a></li>
-    <li><a href="#" class='block font-bold text-lg mb-4'><i class="fa fa-chevron-circle-down mr-6" aria-hidden="true"></i>More</a></li>
+    <li><a href="{{route('history')}}" class='block font-bold text-lg mb-4'><i class="fa fa-chevron-circle-down mr-6" aria-hidden="true"></i>History</a></li>
 </ul>
